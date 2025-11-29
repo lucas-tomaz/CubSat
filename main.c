@@ -109,6 +109,7 @@ int main(){
 
     uint32_t tensao = 6000;
 
+    //Teste descarregando a bateria:
     while (tensao > 500)
     {
         Satelite.id_atual++;
@@ -118,6 +119,7 @@ int main(){
         tensao -= 200;
     }
 
+    //Teste carregando a bateria:
     while (tensao < 6000)
     {
         Satelite.id_atual++;

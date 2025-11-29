@@ -1,6 +1,9 @@
 #include "ciencia.h"
 
-void ler_sensores_externos(Sensor_Externo_ciencia *sensor, uint16_t pressao, uint16_t temperatura, uint16_t rad){
+void ler_sensores_externos(Sensor_Externo_ciencia *sensor, 
+                              uint16_t pressao, 
+                              uint16_t temperatura, 
+                              uint16_t rad){
      sensor->pressao = pressao;
      sensor->temperatura_externa = temperatura;
      sensor->radiacao = rad;
