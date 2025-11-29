@@ -23,11 +23,22 @@ typedef struct {
     Status_Bateria status_bat_atual;
 } Sensores_internos;
 
+typedef struct{
+    int16_t pressao;
+    int16_t tempertura_externa;
+    int16_t radiacao;
+    Operacao_sensor_ciencia opciencia;
+    Operacao_sensor_safe opsafe;
+    Operacao_sensor_transmissao optransm;
+} Sensores_externos;
+
+
 typedef struct
 {
   uint16_t sinc_code;
   Modo_Operacao modo_inicial;
   Sensores_internos payload;
+  Sensores_externos ofload;
   uint8_t id_atual;
 
 } Pacote_Dados;
@@ -51,10 +62,10 @@ void gerenciar_modo(Pacote_Dados *objeto){
 void ler_sensores(Sensores_internos *sensor, uint16_t temperatura, uint16_t voltagem){
     sensor->tempertura = temperatura;
     sensor->voltagem_bat = voltagem;
-    if(voltagem < 1000){
+    if(voltagem <= 1000){
         sensor->status_bat_atual = MODO_CRITICO;
     }
-    else if (voltagem < 5000)
+    else if (voltagem <= 5000)
     {
         sensor->status_bat_atual = MODO_BAIXO;
     }
@@ -67,6 +78,15 @@ void imprimir_pacote(Pacote_Dados pacote){
     printf("=====================================================================================\n");
     printf("PCT ID:%u | Sync: %d | Modo: %d \n", pacote.id_atual, pacote.sinc_code, pacote.modo_inicial);
     printf("[Sensores Internos] Volt: %d | Temp: %d | BatStatus: %d\n", pacote.payload.voltagem_bat, pacote.payload.tempertura, pacote.payload.status_bat_atual);
+    if(pacote.modo_inicial == MODO_CIENCIA){
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.opciencia);
+    }
+    else if(pacote.modo_inicial == MODO_TRANSMISSAO){
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.optransm);
+    }
+    else{
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.opsafe);
+    }
     printf("=====================================================================================\n");
 }
 
