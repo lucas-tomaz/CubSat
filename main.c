@@ -24,12 +24,9 @@ typedef struct {
 } Sensores_internos;
 
 typedef struct{
-    int16_t pressao;
-    int16_t tempertura_externa;
-    int16_t radiacao;
-    Operacao_sensor_ciencia opciencia;
-    Operacao_sensor_safe opsafe;
-    Operacao_sensor_transmissao optransm;
+    Sensor_Externo_ciencia dados_ciencia;
+    Sensor_Externo_safe dados_safe;
+    Sensor_Externo_transmissao dados_transmissao;
 } Sensores_externos;
 
 
@@ -46,16 +43,16 @@ typedef struct
 void gerenciar_modo(Pacote_Dados *objeto){
     if(objeto->payload.status_bat_atual == MODO_CRITICO){
         objeto->modo_inicial = MODO_SAFE;
-        modo_safe();
+        modo_safe(&objeto->ofload.dados_safe);
     }
     else if (objeto->modo_inicial == MODO_TRANSMISSAO)
     {
         objeto->modo_inicial = MODO_TRANSMISSAO;
-        modo_transmissao();
+        modo_transmissao(&objeto->ofload.dados_transmissao);
     }
     else{
         objeto->modo_inicial = MODO_CIENCIA;
-        modo_ciencia();
+        modo_ciencia(&objeto->ofload.dados_ciencia);
     }
 }
 
@@ -79,13 +76,13 @@ void imprimir_pacote(Pacote_Dados pacote){
     printf("PCT ID:%u | Sync: %d | Modo: %d \n", pacote.id_atual, pacote.sinc_code, pacote.modo_inicial);
     printf("[Sensores Internos] Volt: %d | Temp: %d | BatStatus: %d\n", pacote.payload.voltagem_bat, pacote.payload.tempertura, pacote.payload.status_bat_atual);
     if(pacote.modo_inicial == MODO_CIENCIA){
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.opciencia);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_ciencia.pressao, pacote.ofload.dados_ciencia.temperatura_externa, pacote.ofload.dados_ciencia.radiacao, pacote.ofload.dados_ciencia.operacao);
     }
     else if(pacote.modo_inicial == MODO_TRANSMISSAO){
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.optransm);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_transmissao.pressao, pacote.ofload.dados_transmissao.temperatura_externa, pacote.ofload.dados_transmissao.radiacao, pacote.ofload.dados_transmissao.operacao);
     }
     else{
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.pressao, pacote.ofload.tempertura_externa, pacote.ofload.radiacao, pacote.ofload.opsafe);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_safe.pressao, pacote.ofload.dados_safe.temperatura_externa, pacote.ofload.dados_safe.radiacao, pacote.ofload.dados_safe.operacao);
     }
     printf("=====================================================================================\n");
 }
