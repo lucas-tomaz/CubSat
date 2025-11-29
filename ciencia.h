@@ -1,3 +1,6 @@
+#ifndef CIENCIA_H
+#define CIENCIA_H
+
 #include<stdio.h>
 #include<stdint.h>
 
@@ -16,3 +19,5 @@ typedef struct{
 void ler_sensores_externos(Sensor_Externo_ciencia *sensor, 
                          uint16_t pressao, uint16_t temperatura, uint16_t rad);
 void modo_ciencia(Sensor_Externo_ciencia *m);
+
+#endif

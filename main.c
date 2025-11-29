@@ -103,7 +103,7 @@ int main(){
 
 
     //INICIALIZAÇÃO:
-    Satelite.sinc_code = 0x34;
+    Satelite.sinc_code = 0x12;
     Satelite.modo_inicial = MODO_SAFE;
     Satelite.id_atual = 0;
 
@@ -117,5 +117,13 @@ int main(){
         imprimir_pacote(Satelite);
         tensao -= 200;
     }
-    
+
+    while (tensao < 6000)
+    {
+        Satelite.id_atual++;
+        ler_sensores(&Satelite.payload, -7, tensao);
+        gerenciar_modo(&Satelite);
+        imprimir_pacote(Satelite);
+        tensao += 500;
+    }
 }

@@ -1,3 +1,6 @@
+#ifndef SAFE_H
+#define SAFE_H
+
 #include<stdio.h>
 #include<stdint.h>
 
@@ -15,3 +18,5 @@ typedef struct{
 
 void ler_sensores_externos_safe(Sensor_Externo_safe *sensor);
 void modo_safe(Sensor_Externo_safe *s);
+
+#endif

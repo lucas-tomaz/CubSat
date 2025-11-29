@@ -1,3 +1,6 @@
+#ifndef TRANSMISSAO_H
+#define TRANSMISSAO_H
+
 #include<stdio.h>
 #include<stdint.h>
 
@@ -15,3 +18,5 @@ typedef struct{
 
 void ler_sensores_externos_transmissao(Sensor_Externo_transmissao *sensor);
 void modo_transmissao(Sensor_Externo_transmissao *p);
+
+#endif
