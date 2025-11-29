@@ -19,7 +19,7 @@ O software implementa uma **Máquina de Estados** que alterna automaticamente o 
 ##### 2. 📡 MODO_TRANSMISSAO (Transmission Mode)
 Estado dedicado ao *downlink* (envio de dados para a Terra).
 - **Comportamento:** A coleta de novos dados científicos é pausada (sensores em `standby` ou desligados) para priorizar o consumo energético e o processamento para o rádio transmissor.
-- **Detalhe Técnico:** O status de operação muda para `DESLIGADO_TRANSMISSAO` para evitar corrupção de dados durante o envio. Este modo, junto com o `MODO_CIENCIA`, são ativamos via comando da cabine de controle em terra. Com isso, o operador pode decidir o ponto de operação e ativar os sensores externos somente quando nescessário.
+- **Detalhe Técnico:** O status de operação muda para `DESLIGADO_TRANSMISSAO` para evitar corrupção de dados durante o envio. Este modo, junto com o `MODO_CIENCIA`, são ativados via comando da cabine de controle em terra. Com isso, o operador pode decidir o ponto de operação e ativar os sensores externos somente quando nescessário.
 
 ##### 3. 🛡️ MODO_SAFE (Safety Mode)
 Estado crítico de sobrevivência do satélite.
