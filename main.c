@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
+#include<time.h>
 
 #include "safe.h"
 #include "ciencia.h"
@@ -29,7 +30,6 @@ typedef struct{
     Sensor_Externo_transmissao dados_transmissao;
 } Sensores_externos;
 
-
 typedef struct
 {
   uint16_t sinc_code;
@@ -39,6 +39,12 @@ typedef struct
   uint8_t id_atual;
 
 } Pacote_Dados;
+
+void delay(uint32_t t){
+    uint32_t time_ms = 1000*t;
+    clock_t start_time = clock();
+    while (clock() < start_time + time_ms);
+}
 
 void gerenciar_modo(Pacote_Dados *objeto){
     if(objeto->payload.status_bat_atual == MODO_CRITICO){
@@ -98,6 +104,20 @@ void imprimir_pacote(Pacote_Dados pacote){
     printf("=====================================================================================\n");
 }
 
+void executar_comando(Pacote_Dados *p, uint16_t comando){
+    if(comando == 1){
+        p->modo_inicial = MODO_CIENCIA;
+        modo_ciencia(&p->ofload.dados_ciencia);
+        printf("[NOTA] Entrando em modo de exploracao!\n");
+    }
+    else if (comando == 2)
+    {
+        p->modo_inicial = MODO_TRANSMISSAO;
+        modo_transmissao(&p->ofload.dados_transmissao);
+        printf("[NOTA] Entrando em modo de transmissao!\n");
+    }
+}
+
 int main(){
     Pacote_Dados Satelite;
 
@@ -124,6 +144,26 @@ int main(){
     {
         Satelite.id_atual++;
         ler_sensores(&Satelite.payload, -7, tensao);
+        gerenciar_modo(&Satelite);
+        imprimir_pacote(Satelite);
+        tensao += 500;
+    }
+
+    executar_comando(&Satelite, 2);
+
+    for(size_t i = 1; i<=5; i++){
+        Satelite.id_atual++;
+        ler_sensores(&Satelite.payload, -5, tensao);
+        gerenciar_modo(&Satelite);
+        imprimir_pacote(Satelite);
+        tensao += 500;
+    }
+
+    executar_comando(&Satelite, 1);
+
+    for(size_t i = 1; i<=5; i++){
+        Satelite.id_atual++;
+        ler_sensores(&Satelite.payload, -1, tensao);
         gerenciar_modo(&Satelite);
         imprimir_pacote(Satelite);
         tensao += 500;

@@ -27,7 +27,6 @@ Estado crítico de sobrevivência do satélite.
 - **Condição de Ativação:** Acionado automaticamente (interrupção por software) quando a tensão da bateria cai para níveis críticos (**≤ 1000mV**), prevenindo o *blackout* total do sistema. Além disso, neste modo há um corte total de comandos com o centro de operação. Neste modo, o operador não pode tirar o sistema do `MODO_SAFE` através de comandos enviados na sala de controle.
 
 ### Metas futuras:
-- Incrementar o algoritmo que faz o envio dos dados para o SST e lógica de processamento de ativação dos modos `MODO_CIENCIA` e `MODO_TRANSMISSAO`.
 - Fazer projeto do circuito eletrônico do SST no Kicad/EasyEDA.
 - Implementar como protótipo usando a placa BitDog Lab.
 
