@@ -74,15 +74,26 @@ void ler_sensores(Sensores_internos *sensor, uint16_t temperatura, uint16_t volt
 void imprimir_pacote(Pacote_Dados pacote){
     printf("=====================================================================================\n");
     printf("PCT ID:%u | Sync: %d | Modo: %d \n", pacote.id_atual, pacote.sinc_code, pacote.modo_inicial);
-    printf("[Sensores Internos] Volt: %d | Temp: %d | BatStatus: %d\n", pacote.payload.voltagem_bat, pacote.payload.tempertura, pacote.payload.status_bat_atual);
+    printf("[Sensores Internos] Volt: %d | Temp: %d | BatStatus: %d\n", pacote.payload.voltagem_bat, 
+                                                                        pacote.payload.tempertura, 
+                                                                        pacote.payload.status_bat_atual);
     if(pacote.modo_inicial == MODO_CIENCIA){
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_ciencia.pressao, pacote.ofload.dados_ciencia.temperatura_externa, pacote.ofload.dados_ciencia.radiacao, pacote.ofload.dados_ciencia.operacao);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_ciencia.pressao, 
+                                                                                        pacote.ofload.dados_ciencia.temperatura_externa, 
+                                                                                        pacote.ofload.dados_ciencia.radiacao, 
+                                                                                        pacote.ofload.dados_ciencia.operacao);
     }
     else if(pacote.modo_inicial == MODO_TRANSMISSAO){
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_transmissao.pressao, pacote.ofload.dados_transmissao.temperatura_externa, pacote.ofload.dados_transmissao.radiacao, pacote.ofload.dados_transmissao.operacao);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_transmissao.pressao, 
+                                                                                        pacote.ofload.dados_transmissao.temperatura_externa, 
+                                                                                        pacote.ofload.dados_transmissao.radiacao, 
+                                                                                        pacote.ofload.dados_transmissao.operacao);
     }
     else{
-        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_safe.pressao, pacote.ofload.dados_safe.temperatura_externa, pacote.ofload.dados_safe.radiacao, pacote.ofload.dados_safe.operacao);
+        printf("[Sensores Externos] Pressao: %d | Temp_Ext: %d | Rad: %d | Oper: %d\n", pacote.ofload.dados_safe.pressao, 
+                                                                                        pacote.ofload.dados_safe.temperatura_externa, 
+                                                                                        pacote.ofload.dados_safe.radiacao, 
+                                                                                        pacote.ofload.dados_safe.operacao);
     }
     printf("=====================================================================================\n");
 }
@@ -92,7 +103,7 @@ int main(){
 
 
     //INICIALIZAÇÃO:
-    Satelite.sinc_code = 2;
+    Satelite.sinc_code = 0x34;
     Satelite.modo_inicial = MODO_SAFE;
     Satelite.id_atual = 0;
 
