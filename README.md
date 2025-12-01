@@ -29,6 +29,7 @@ Estado crítico de sobrevivência do satélite.
 ### Metas futuras:
 - Fazer projeto do circuito eletrônico do SST no Kicad/EasyEDA.
 - Implementar como protótipo usando a placa BitDog Lab.
+- Implementar sistema de coordenadas para validar a posição do SST em relação a Terra, bem como para ajustar a sua prória posição em relação aos eixos de coordenadas simulando a operação de discos para fazer a rotação do sistema nos eixos x, y e z.
 
 <img width="399" height="261" alt="image" src="https://github.com/user-attachments/assets/52a70357-7c81-4b4e-9934-cfc492e57470" /> <img width="399" height="261" alt="image" src="https://github.com/user-attachments/assets/c8c59037-a1dc-4fe9-8746-ab01a2ec3f20" />
 
